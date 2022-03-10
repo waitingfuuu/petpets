@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Pets</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>   
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+</head>
+<body>
+    <div id="container">
+        <div id="endtext"></div>
+        <div id="boy">
+            <div class="character">
+                <img class="character_img"  id="boy_img" src="img/boy/boy1.jpg" alt="">
+            </div>
+            <div id="object">
+                <img class="object_img" id="boy_object" src="img/boy/hat.png" alt="">
+            </div>
+        </div>
+        <div id="cat">
+            <div class="character">
+                <img class="character_img" id="cat_img" src="img/cat/0.png" alt="">
+            </div>
+            <div id="object">
+                <img class="object_img" id="cat_object"src="img/cat/img.png" alt="">
+            </div>
+        </div>
+        <div id="dog">
+            <div class="character">
+                <img class="character_img" id="dog_img" src="img/dog/0.png" alt="">
+            </div>
+        </div>
+        <div id="hellotext">
+            <p>Hello . . . </p>
+        </div>
+        <div id="playAgain">Play Again</div>
+    </div>
+
+    
+<script>
+    var click = false;
+    var imgs_boy = ['img/boy/boy1.jpg', 'img/boy/boy2.jpg', 'img/boy/boy3.jpg', 'img/boy/boy4.jpg', "img/boy/boy5.jpg", "img/boy/boy6.jpg", "img/boy/boy7.jpg", "img/boy/boy8.jpg", "img/boy/boy9.jpg"];
+    var imgs_dog = ['img/dog/0.png', 'img/dog/1.png', 'img/dog/2.png', 'img/dog/3.png', "img/dog/4.png", "img/dog/5.png", "img/dog/6.png", "img/dog/7.png", "img/dog/8.png"];
+    var imgs_cat = ['img/cat/0.png', 'img/cat/1.png', 'img/cat/2.png', 'img/cat/3.png', "img/cat/4.png", "img/cat/5.png", "img/cat/6.png", "img/cat/7.png", "img/cat/8.png"];
+//-------
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
+    function click_boy(i){
+        if(click){
+            $('#boy_object').draggable();
+            $("#boy_object").draggable({revert : true});
+            $('#boy_object').mouseup(function () {
+                $("#hellotext > p").text("");
+                i++;
+                if (i == 3) $("#hellotext > p").text("Oh Ya!");
+                else if (i == 5) $("#hellotext > p").text("Moreeeee!!!");
+                else if (i == imgs_boy.length - 1) 
+                {
+                    $("#endtext").text("The little boy is verrrrrry happy, he can break the Guinness World Record NOW!!!");
+                    $("#endtext").show();
+                    $("#hellotext").hide();
+                    $("#boy_object").hide();
+                    $("#playAgain").show();
+                }
+                $('#boy_img').attr('src', imgs_boy[i]);
+            });
+        }
+    }
+    function click_cat(i){
+        if(click){
+            $('#cat_object').draggable();
+            $("#cat_object").draggable({revert : true});
+            $('#cat_object').mouseup(function () {
+                $("#hellotext > p").text("");
+                i++;
+                if (i == 3) $("#hellotext > p").text("Oh Ya!");
+                else if (i == 5) $("#hellotext > p").text("Moreeeee!!!");
+                else if (i == imgs_cat.length - 1) 
+                {
+                    $("#endtext").text("The cute cat is verrrrrry happy !! But her body can't change back !!!");
+                    $("#endtext").show();
+                    $("#hellotext").hide();
+                    $("#cat_object").hide();
+                    $("#playAgain").show();
+                }
+                $('#cat_img').attr('src', imgs_cat[i]);
+            });
+        }
+    }
+    function click_dog(i){
+        if(click){
+            $('#dog_img').click(function(){
+                $("#hellotext > p").text(" ");
+                i++;
+                if (i == 3) $("#hellotext > p").text("Oh Ya!");
+                else if (i == 5) $("#hellotext > p").text("Moreeeee!!!");
+                else if (i == imgs_dog.length - 1) 
+                {
+                    $("#endtext").text("The cute dog is verrrrrry happy !! He can make friends with giraffes NOW !!!");
+                    $("#endtext").show();
+                    $("#hellotext").hide();
+                    $("#playAgain").show();
+                }
+                $('#dog_img').attr('src', imgs_dog[i]);
+            });
+        }
+    }
+    function play(){
+        click = false;
+        $("#boy").hide();
+        $("#cat").hide();
+        $("#dog").hide();
+        $(".object_img").hide();
+        $("#playAgain").hide();
+        $("#hellotext > p").text("Hello . . . ");
+        $("#hellotext").show();
+        $("#endtext").hide();
+        $('#dog_img').attr('src', imgs_dog[0]);
+        $('#boy_img').attr('src', imgs_boy[0]);
+        $('#cat_img').attr('src', imgs_cat[0]);
+
+//--開場隨機人物
+        let x = getRandomInt(5);
+        if(x == 0 || x == 1) $("#cat").show();
+        else if(x == 2 || x == 3) $("#dog").show();
+        else $("#boy").show();
+//--各自人物對話顯示
+        var i = 0;
+        console.log(i);
+        $("#hellotext").click(() => {
+            if(x == 0 || x == 1) 
+            {
+                $("#hellotext > p").text("Meow~ Could u Play with me?");
+                $(".object_img").show();
+                click = true;
+                click_cat(i);
+            }
+            else if(x == 2 || x == 3) 
+            {
+                $("#hellotext > p").text("Woof! Could u PET me?");
+                click = true;
+                click_dog(i);
+            }
+            else 
+            {
+                $("#hellotext > p").text("Did U see my hat?");
+                $(".object_img").show();
+                click = true;
+                click_boy(i);
+            }
+        });
+        $("#playAgain").click(() => {
+            play();
+        });
+
+    }
+    $(document).ready(function(){
+//--開場隨機人物
+//         $(".object_img").hide();
+//         $("#boy").hide();
+//         $("#cat").hide();
+//         $("#dog").hide();
+//         $("#playAgain").hide();
+
+//         let x = getRandomInt(5);
+//         if(x == 0 || x == 1) $("#cat").show();
+//         else if(x == 2 || x == 3) $("#dog").show();
+//         else $("#boy").show();
+// //--各自人物對話顯示
+//         $("#endtext").hide();
+//         var i= 0;
+//         $("#hellotext").click(() => {
+//             if(x == 0 || x == 1) 
+//             {
+//                 $("#hellotext > p").text("Meow~ Could u Play with me?");
+//                 $(".object_img").show();
+//                 click = true;
+//                 clicke_cat(i);
+//             }
+//             else if(x == 2 || x == 3) 
+//             {
+//                 $("#hellotext > p").text("Woof! Could u PET me?");
+//                 click = true;
+//                 clicke_dog(i);
+//             }
+//             else 
+//             {
+//                 $("#hellotext > p").text("Did U see my hat?");
+//                 $(".object_img").show();
+//                 click = true;
+//                 clicke_boy(i);
+//             }
+//         });
+//         $("#playAgain").click(() => {
+//             // history.go(0);
+//             location.reload();
+//         });
+        play();
+    })
+</script>
+</body>
+</html>
